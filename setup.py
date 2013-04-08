@@ -103,11 +103,11 @@ def find_package_data(
     return out
 
 
-PACKAGE = ""
-NAME = ""
-DESCRIPTION = ""
-AUTHOR = ""
-AUTHOR_EMAIL = ""
+PACKAGE = "contacts"
+NAME = "ftw-contacts"
+DESCRIPTION = "the contacts app for ftw projects"
+AUTHOR = "Julian Threatt"
+AUTHOR_EMAIL = "julian@ftwgroup.com"
 URL = ""
 VERSION = __import__(PACKAGE).__version__
 
