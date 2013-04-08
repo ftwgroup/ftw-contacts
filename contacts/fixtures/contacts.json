@@ -1,0 +1,73 @@
+[
+    {
+        "fields": {
+            "tag": "student"
+        },
+        "model": "contacts.tag",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "tag": "attendee"
+        },
+        "model": "contacts.tag",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "tag": "person"
+        },
+        "model": "contacts.tag",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "tag": "donor"
+        },
+        "model": "contacts.tag",
+        "pk": 4
+    },
+    {
+        "model": "contacts.contact",
+        "pk": 1,
+        "fields": {
+            "first_name": "Tori",
+            "last_name": "Spelling",
+            "phone_primary": "1234567890",
+            "email": "tori@school.com",
+            "tags": [1, 2, 3]
+        }
+    },
+    {
+        "model": "contacts.contact",
+        "pk": 2,
+        "fields": {
+            "first_name": "Paul",
+            "last_name": "McCartney",
+            "phone_primary": "1113334444",
+            "email": "paul@beatles.com",
+            "tags": [4]
+        }
+    },
+    {
+        "model": "contacts.contact",
+        "pk": 3,
+        "fields": {
+            "first_name": "John",
+            "last_name": "Lennon",
+            "phone_primary": "2223334444",
+            "email": "john@beatles.com",
+            "tags": [1, 4]
+        }
+    },
+    {
+        "model": "contacts.contact",
+        "pk": 4,
+        "fields": {
+            "first_name": "Ringo",
+            "last_name": "Starr",
+            "phone_primary": "4443334444",
+            "email": "ringo@beatles.com"
+        }
+    }
+]

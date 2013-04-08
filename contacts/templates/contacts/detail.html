@@ -1,0 +1,46 @@
+{#{% extends "contacts/base.html" %}#}
+{% load url from future %}
+{% load verbatim_tag %}
+
+{% verbatim %}
+<div id="container">
+  <h1>Contacts Detail</h1>
+  <hr/>
+  <a href="#/contacts">&larr; Back to Contacts List</a>
+
+  <br/>
+  <br/>
+
+  <form ng-submit="addContact(newContact)" class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label" for="first_name">First Name</label>
+      <div class="controls">
+        <input type="text" id="first_name" value="{{ contact.first_name }}">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="last_name">Last Name</label>
+      <div class="controls">
+        <input type="text" id="last_name" value="{{ contact.last_name }}">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="phone_primary">Primary Phone</label>
+      <div class="controls">
+        <input type="text" id="phone_primary" value="{{ contact.phone }}">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="first_name">Email</label>
+      <div class="controls">
+        <input type="text" id="email" value="{{ contact.email }}">
+      </div>
+    </div>
+
+    <input class="btn btn-success" type="submit" value="Save">
+  </form>
+</div>
+{% endverbatim %}

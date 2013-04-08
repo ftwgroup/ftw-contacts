@@ -1,0 +1,85 @@
+@greenRadialStart: #D8C48F;
+@greenRadialStop: #ece2c8;
+
+.pointer {
+    cursor: pointer;
+}
+
+ul {
+    margin-left: 0;
+
+    li {
+        list-style: none;
+    }
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+table.contacts-list {
+    ul.contact-tags-list {
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: inline;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }    
+    }
+
+    td.contact-actions {
+        ul {
+            margin: 0;
+            padding: 0;
+
+            li {
+                display: inline;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+    a {
+        color: inherit;
+        
+        &:hover{
+            text-decoration: none;
+        }
+    }
+}
+
+#tags { position: relative; }
+#tags ul.tags-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 5px;
+    position: absolute;
+    top: 24px;
+    left: 7px;
+    background: white;
+    width: 200px;
+}
+
+
+
+@media (max-width: 980px) {
+    /* Enable use of floated navbar text */
+    .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+footer {
+    text-align: center;
+    background: orange;
+}

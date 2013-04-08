@@ -1,0 +1,187 @@
+{% load verbatim_tag %}
+
+<!DOCTYPE html>
+<html lang="en" ng-app="contacts">
+<head>
+    <title>{% block title %}Elevate{% endblock %}</title>
+
+    {% load compressed %}
+    {% compressed_css 'bootstrap' %}
+    {% compressed_css 'application' %}
+
+    {% compressed_js 'common' %}
+<!--
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+-->
+<!-- for offline development -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/jquery/jquery-ui.min.css" />
+    <script src="{{ STATIC_URL }}libs/jquery/jquery-ui.js" /></script>
+    <script src="{{ STATIC_URL }}js/vendor/angular.js"></script>
+    <script src="{{ STATIC_URL }}js/vendor/angular-resource.js"></script>
+    <script src="{{ STATIC_URL }}js/app.js"></script>
+    <script src="{{ STATIC_URL }}js/services.js"></script>
+    <script src="{{ STATIC_URL }}js/controllers.js"></script>
+    <script>
+        account_id = "{{ account_id }}";
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+    </script>
+
+{#    <script>#}
+{#        $(function() {#}
+{#            var availableTags = [#}
+{#                "ActionScript",#}
+{#                "AppleScript",#}
+{#                "Asp",#}
+{#                "BASIC",#}
+{#                "C",#}
+{#                "C++",#}
+{#                "Clojure",#}
+{#                "COBOL",#}
+{#                "ColdFusion",#}
+{#                "Erlang",#}
+{#                "Fortran",#}
+{#                "Groovy",#}
+{#                "Haskell",#}
+{#                "Java",#}
+{#                "JavaScript",#}
+{#                "Lisp",#}
+{#                "Perl",#}
+{#                "PHP",#}
+{#                "Python",#}
+{#                "Ruby",#}
+{#                "Scala",#}
+{#                "Scheme"#}
+{#            ];#}
+{#            function split( val ) {#}
+{#                return val.split( /,\s*/ );#}
+{#            }#}
+{#            function extractLast( term ) {#}
+{#                return split( term ).pop();#}
+{#            }#}
+{##}
+{#            $( "#tags" )#}
+{#                // don't navigate away from the field on tab when selecting an item#}
+{#                .bind( "keydown", function( event ) {#}
+{#                       if ( event.keyCode === $.ui.keyCode.TAB &&#}
+{#                           $( this ).data( "ui-autocomplete" ).menu.active ) {#}
+{#                           event.preventDefault();#}
+{#                       }#}
+{#                   })#}
+{#                .autocomplete({#}
+{#                      minLength: 0,#}
+{#                      source: function( request, response ) {#}
+{#                          // delegate back to autocomplete, but extract the last term#}
+{#                          response( $.ui.autocomplete.filter(#}
+{#                              availableTags, extractLast( request.term ) ) );#}
+{#                      },#}
+{#                      focus: function() {#}
+{#                          // prevent value inserted on focus#}
+{#                          return false;#}
+{#                      },#}
+{#                      select: function( event, ui ) {#}
+{#                          var terms = split( this.value );#}
+{#                          // remove the current input#}
+{#                          terms.pop();#}
+{#                          // add the selected item#}
+{#                          terms.push( ui.item.value );#}
+{#                          // add placeholder to get the comma-and-space at the end#}
+{#                          terms.push( "" );#}
+{#                          this.value = terms.join( ", " );#}
+{#                          return false;#}
+{#                      }#}
+{#              });#}
+{#        });#}
+{#    </script>#}
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="#">Elevate</a>
+        <div class="nav-collapse collapse">
+          <p class="navbar-text pull-right">
+            Logged in as <a href="#" class="navbar-link">Username</a>
+          </p>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2">
+        <div class="well sidebar-nav" ng-controller="TagListCtrl">          
+          {% verbatim %}
+          <ul class="nav nav-list">
+            <li class="nav-header">Tags</li>            
+            <li ng-repeat="tag in tags"><a href="#">{{ tag.tag }}</a></li>
+            <li class="active"><a href="#">Active Link</a></li>
+          </ul>
+          {% endverbatim %}
+        </div><!--/.well -->
+      </div><!--/span-->
+
+      <div class="span10">
+
+        <!-- flash messages -->
+        {% if flash %}
+        <div class="alert alert-info alert-block">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <ul>
+            {% for class, msg in flash %}
+            <li>
+              {% if class == "success" %}
+              <i class="icon-ok" style="color: green;"></i>
+              {% else %}
+              <i class="icon-remove" style="color: red;"></i>
+              {% endif %}
+
+              {{ msg }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <!-- angular view -->
+        <div ng-view></div>
+      </div>
+    </div><!-- row -->
+  </div>
+
+  <footer>
+    <h1><i class="icon-camera-retro icon-trophy"></i>FTW Elevate<i class="icon-camera-retro icon-trophy"></i></h1>
+  </footer>
+
+</body>
+</html>

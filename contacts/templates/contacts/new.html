@@ -1,0 +1,17 @@
+{% extends "contacts/base.html" %}
+{% load url from future %}
+
+{% block content %}
+<div id="container">
+  <h1>Add a new contact</h1>
+  <hr/>
+
+  <form method="post" action="{% url 'new' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save"/>
+  </form>
+
+  
+</div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+<h1>Files List</h1>
+<hr/>
+{% if documents %}
+<ul>
+  {% for document in documents %}
+  <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+  {% endfor %}
+</ul>
+{% else%}
+<p>No documents.</p>
+{% endif %}
+o

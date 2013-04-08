@@ -1,0 +1,119 @@
+{#{% extends "contacts/base.html" %}#}
+{% load url from future %}
+{% load verbatim_tag %}
+
+{#{% block content %}#}
+<div id="container">
+    <h1>Contacts List</h1>
+    <hr/>
+    {#  <a href="{% url 'new' %}">New Contact</a>#}
+    {#  <a href="{% url 'upload' %}">Upload Contacts</a>#}
+
+    <button ng-click="showAddContact()" class="btn btn-primary">Add Contact</button>
+    <button ng-click="showUploadContact()" class="btn btn-info">Upload Contacts</button>
+
+    <form ng-show="showAddForm" ng-submit="addContact(newContact)" class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="firstName">First Name</label>
+        <div class="controls">
+          <input ng-model="newContact.first_name" type="text" id="firstName" placeholder="First Name" name="firstName">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="lastName">Last Name</label>
+        <div class="controls">
+          <input ng-model="newContact.last_name" type="text" id="lastName" placeholder="Last Name" name="lastName">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="phone">Primary Phone</label>
+        <div class="controls">
+          <input ng-model="newContact.phone_primary" type="text" data-mask="999-999-9999" id="phone" placeholder="Primary Phone Number" name="phone_primary">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="contactTitle">Email Address</label>
+        <div class="controls">
+          <input ng-model="newContact.email" type="text" id="contactTitle" placeholder="Email" name="email">
+        </div>
+      </div>
+      <input class="btn btn-success" type="submit" value="Add">
+      <input ng-click="showAddContact()" class="btn btn-danger" value="Cancel">
+    </form>
+
+    <form ng-show="showUploadForm" method="post" action="{% url 'upload' %}" class="form-horizontal" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="fileupload fileupload-new" data-provides="fileupload">
+        <div class="input-append">
+          <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i> <span class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" name="docfile" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
+      </div>
+      <input class="btn btn-success" type="submit" value="Upload">
+      <input ng-click="showUploadContact()" class="btn btn-danger" value="Cancel">
+    </form>
+
+
+    <table class="contacts-list table table-striped table-condensed table-hover">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Phone</td>
+          <td>Tags</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      {% verbatim %}
+      <tr ng-repeat="contact in contacts">
+        <td><a href="#/contacts/{{ contact.id }}">{{ contact.first_name + " " + contact.last_name }}</a></td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.phone_primary }}</td>
+        <td>
+          <ul class="contact-tags-list">
+            <li ng-repeat="tag in contact.tags">
+              <span class="label label-success">{{ tag.tag }}<i class="icon-remove-sign"></i></span>
+            </li>
+        </td>
+        <td class="contact-actions">
+          <ul>
+            <li class="pointer"><a href="#/contacts/{{ contact.id }}"><i class="icon-pencil"></i></a></li>
+            <li class="pointer" ng-click="addContactTags(contact)"><i class="icon-tags"></i></li>            
+            <li class="pointer" ng-click="deleteContact(contact)"><i class="icon-trash"></i></li>
+          </ul>
+        </td>
+      </tr>
+      {% endverbatim %}
+    </table>
+        
+    <h1>Tags List</h1>
+    {% verbatim %}
+    <div id="tags" ng-controller="TagListCtrl">
+
+      <div ng-repeat="tag in tags">
+        <input type="checkbox" value="{{ tag.tag }}">
+        {{ tag.tag }}
+      </div>
+
+      <!-- <input type="text" placeholder="search here" ng-model="query"/> -->
+      <!-- <ul class="tags-list" ng-show="query"> -->
+      <!--   <li ng-repeat="tag in tags | filter: query">{{tag}}</li> -->
+      <!-- </ul> -->
+    </div>
+
+    {% endverbatim %}
+
+    <hr/>
+
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input auto-complete ng-model="tagsWidget" id="tags-autocomplete" size="50" />
+    </div>
+    <ul>
+      {% verbatim %}
+      <li>{{ tagsWidget }}</li>
+      <li ng-repeat="tag in tags">{{ tag.tag }}</li>
+      {% endverbatim %}
+    </ul>
+
+</div>
+{#{% endblock content %}#}

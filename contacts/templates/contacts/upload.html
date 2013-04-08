@@ -1,0 +1,28 @@
+{% extends "contacts/base.html" %}
+{% load url from future %}
+{% load verbatim_tag %}
+
+{% block content %}
+<div id="container">
+  <h1>Upload a CSV file</h1>
+  <hr/>
+
+  {% if documents %}
+  <ul>
+    {% for document in documents %}
+    <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No documents.</p>
+  {% endif %}
+
+  <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><input type="submit" value="Upload" /></p>
+  </form>
+
+
+</div>
+{% endblock content %}
