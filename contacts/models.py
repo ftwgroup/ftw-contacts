@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from pennyblack.module.subscriber.models import NewsletterSubscriber, SubscriberGroup
-from account.models import Account
+#from account.models import Account
 from django.contrib.localflavor.us.models import PhoneNumberField
 import audit
 
@@ -47,7 +47,7 @@ class Contact(models.Model):
     email = models.EmailField(max_length=255, null=True, blank=True, unique=True)
     #account = models.ForeignKey(Account, null=True, blank=True)
     tags = models.ManyToManyField(Tag, null=True, blank=True)
-    # donations = models.ManyToManyField(Donation, null=True, blank=True)
+    donations = models.ManyToManyField(Donation, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
