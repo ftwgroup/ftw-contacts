@@ -47,7 +47,7 @@ class Contact(models.Model):
     email = models.EmailField(max_length=255, null=True, blank=True, unique=True)
     #account = models.ForeignKey(Account, null=True, blank=True)
     tags = models.ManyToManyField(Tag, null=True, blank=True)
-    donations = models.ManyToManyField(Donation, null=True, blank=True)
+    donations = models.ManyToManyField(Donation, null=True, blank=True, related_name="donations")
     country = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
