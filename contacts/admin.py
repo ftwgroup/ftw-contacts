@@ -13,7 +13,7 @@ class NoteInline(admin.StackedInline):
     extra = 1
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'get_tags')
+    list_display = ('first_name', 'last_name', 'email', 'has_donated', 'get_tags')
     search_fields = ['first_name', 'last_name', 'tags__tag']
     inlines = [NoteInline, DonationInline]
 

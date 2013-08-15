@@ -67,6 +67,9 @@ class Contact(models.Model):
     def get_tags(self):
         tags = map(lambda x: x.tag, self.tags.all())
         return ','.join(tags)
+
+    def has_donated(self):
+        return len(self.donations.all()) > 0
     
     def save(self, *args, **kwargs):
         lower_all_str_attr(self)
